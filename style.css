@@ -17,6 +17,7 @@ body {
     width: 100%;
     z-index: 2000;
     background: #fff;
+    border-bottom: 4px solid #2d5a27;
     /* transitionは「高さに関わるもの」に絞るとスムーズです */
     transition: padding 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
     box-shadow: 0 2px 10px rgba(0,0,0,0.05);
@@ -37,7 +38,6 @@ body {
 main {
     margin-top: 180px; /* PCでの初期値。JSが動く一瞬前の重なりを防ぐ */
     transition: margin-top 0.3s ease; /* ヌルッと動く魔法 */
-    display: block;
 }
 
 @media (max-width: 768px) {
