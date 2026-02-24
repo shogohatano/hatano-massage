@@ -21,10 +21,18 @@ body {
     box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
 
+/* PC用の設定 */
 .header-placeholder {
-    height: 140px; /* 土台の高さ */
+    height: 140px; /* PCヘッダーの実際の高さに合わせて調整 */
+    display: block; /* 確実に見えるように */
 }
 
+/* スマホ用の設定（@mediaの中） */
+@media (max-width: 768px) {
+    .header-placeholder {
+        height: 80px; /* スマホヘッダーの高さ。ロゴ＋ハンバーガーの高さくらいに */
+    }
+}
 .container {
     max-width: 1100px;
     margin: 0 auto;
