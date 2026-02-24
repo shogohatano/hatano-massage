@@ -1,83 +1,12 @@
-/* 基本設定 */
+/* ==========================================
+   1. 全体・基本設定
+   ========================================== */
 body {
     font-family: "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
     line-height: 1.8;
-    color: #333; /* 真っ黒すぎない濃いグレーで目に優しく */
+    color: #333;
     margin: 0;
-    font-size: 18px; /* 文字は大きめに設定 */
-}
-
-/* ==========================================
-   1. ヘッダーの基本設定（常に浮いている状態）
-   ========================================== */
-.site-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 2000;
-    background: #fff;
-    border-bottom: 4px solid #2d5a27;
-    /* transitionは「高さに関わるもの」に絞るとスムーズです */
-    transition: padding 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-}
-
-/* ヘッダーの中身の余白（PC時） */
-.header-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 0; /* スクロール前はゆったり */
-    transition: padding 0.3s ease;
-}
-
-/* ==========================================
-   2. メインコンテンツ（同期の要）
-   ========================================== */
-main {
-    margin-top: 180px; /* PCでの初期値。JSが動く一瞬前の重なりを防ぐ */
-    transition: margin-top 0.3s ease; /* ヌルッと動く魔法 */
-}
-
-@media (max-width: 768px) {
-    main {
-        margin-top: 100px; /* スマホでの初期値 */
-    }
-}
-
-/* ==========================================
-   3. スクロールした後のスタイル (.scrolled)
-   ========================================== */
-/* JSでこのクラスが付与されると、以下の設定が発動します */
-.site-header.scrolled {
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-}
-
-.site-header.scrolled .header-top {
-    padding: 5px 0; /* スクロール後はギュッと細くする */
-}
-
-.site-header.scrolled .logo-text h1 {
-    font-size: 20px; /* ロゴも小さくして圧迫感を減らす */
-}
-
-.site-header.scrolled .sub-logo,
-.site-header.scrolled .contact-label,
-.site-header.scrolled .header-hours {
-    opacity: 0;
-    visibility: hidden;
-    height: 0;
-    margin: 0;
-    display: none; /* 不要な情報を消してスリム化 */
-}
-
-.site-header.scrolled .header-tel {
-    font-size: 20px; /* 電話番号もスリムに */
-}
-
-.site-header.scrolled .main-nav a {
-    padding: 8px 0; /* メニューも細く */
+    font-size: 18px;
 }
 
 .container {
@@ -86,709 +15,182 @@ main {
     margin: 0 auto;
 }
 
-/* メインビジュアル */
+/* ==========================================
+   2. ヘッダー（固定・動的制御）
+   ========================================== */
+.site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 2000; /* 最前面 */
+    background: #fff;
+    border-bottom: 4px solid #2d5a27;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    transition: padding 0.3s ease;
+}
+
+/* メインコンテンツの開始位置（JSで動的に変わる） */
+main {
+    margin-top: 180px; /* PC初期値 */
+    transition: margin-top 0.3s ease;
+    display: block;
+}
+
+/* スクロール時の変化 (.scrolled) */
+.site-header.scrolled {
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.site-header.scrolled .header-top {
+    padding: 5px 0;
+}
+
+.site-header.scrolled .logo-text h1 {
+    font-size: 20px;
+}
+
+.site-header.scrolled .sub-logo,
+.site-header.scrolled .contact-label,
+.site-header.scrolled .header-hours {
+    display: none;
+}
+
+.site-header.scrolled .header-tel {
+    font-size: 20px;
+}
+
+/* ==========================================
+   3. ロゴ・連絡先・ナビゲーション
+   ========================================== */
+.logo-text { text-decoration: none; display: block; }
+.sub-logo { display: block; font-size: 13px; color: #2d5a27; font-weight: bold; }
+.logo-text h1 { font-size: 26px; color: #2d5a27; margin: 0; }
+
+.header-contact { text-align: right; }
+.header-tel { font-size: 28px; font-weight: bold; color: #e67e22; text-decoration: none; }
+.contact-label { font-size: 14px; margin: 0; color: #666; }
+.header-hours { font-size: 13px; margin: 0; color: #666; }
+
+.main-nav { border-top: 1px solid #f0f0f0; }
+.main-nav ul { 
+    display: flex; 
+    list-style: none; 
+    margin: 0; 
+    padding: 0; 
+}
+.main-nav li { flex: 1; }
+.main-nav a {
+    display: block; padding: 15px 0; text-align: center; text-decoration: none;
+    color: #333; font-weight: bold; transition: 0.3s;
+}
+
+.site-header.scrolled .main-nav a {
+    padding: 8px 0;
+    font-size: 14px;
+}
+
+/* ==========================================
+   4. スマホ対応 (メディアクエリ)
+   ========================================== */
+@media (max-width: 768px) {
+    main {
+        margin-top: 100px; /* スマホ初期値 */
+    }
+
+    .header-contact { display: none; }
+
+    .menu-toggle {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 30px;
+        height: 22px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        z-index: 3000;
+    }
+
+    .menu-toggle span {
+        display: block; width: 100%; height: 3px; background: #2d5a27; transition: 0.3s;
+    }
+
+    .main-nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 70%;
+        height: 100vh;
+        background: #fff;
+        padding-top: 80px;
+        transition: 0.4s;
+        border: none;
+        box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+        z-index: 2500;
+    }
+
+    .main-nav.open { right: 0; }
+    .main-nav ul { flex-direction: column; }
+    .main-nav a { text-align: left; padding: 15px 20px; border-bottom: 1px solid #eee; }
+}
+
+@media (min-width: 769px) {
+    .menu-toggle { display: none; }
+}
+
+/* ==========================================
+   5. 各セクションのデザイン（ヒーロー・お悩み等）
+   ========================================== */
 .hero {
-    background-color: #f1f8f1; /* 非常に薄い緑（背景） */
+    background-color: #f1f8f1;
     padding: 60px 20px;
     text-align: center;
 }
 
-.hero h2 {
-    color: #2d5a27; /* 落ち着いた緑 */
-    font-size: 32px;
-}
+.hero h2 { color: #2d5a27; font-size: 32px; }
 
-/* ボタン */
 .btn-orange {
     display: inline-block;
-    background-color: #e67e22; /* オレンジ */
+    background-color: #e67e22;
     color: white;
     padding: 15px 30px;
     border-radius: 50px;
     text-decoration: none;
     font-weight: bold;
-    box-shadow: 0 4px 0 #b35d10; /* 立体感を出してボタンと認識しやすく */
+    box-shadow: 0 4px 0 #b35d10;
 }
 
-/* セクション全体の余白 */
-.problems {
-    padding: 60px 0;
-}
-
-.section-title {
-    text-align: center;
-    margin-bottom: 40px;
-}
-
+.section-title { text-align: center; margin-bottom: 40px; }
 .section-title h2 {
-    color: #2d5a27; /* 落ち着いた緑 */
-    border-bottom: 3px solid #e67e22; /* オレンジの下線 */
+    color: #2d5a27;
+    border-bottom: 3px solid #e67e22;
     display: inline-block;
     padding-bottom: 10px;
 }
 
-/* 2カラム（横並び）の設定：スマホでは縦に並びます */
-.problem-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    margin-bottom: 40px;
-}
-
+.problem-grid { display: flex; flex-wrap: wrap; gap: 20px; margin-bottom: 40px; }
 .problem-item {
-    flex: 1;
-    min-width: 300px;
-    background: #f9fdf9; /* ごく薄い緑 */
-    border: 2px solid #2d5a27;
-    border-radius: 10px;
-    padding: 20px;
-}
-
-.problem-item h3 {
-    color: #2d5a27;
-    font-size: 22px;
-    margin-top: 0;
-}
-
-.problem-item ul {
-    list-style-type: "✔ "; /* チェックマークをリストの頭に */
-    padding-left: 20px;
-}
-
-.problem-item li {
-    margin-bottom: 10px;
-    font-weight: bold;
-}
-
-/* 申し込みを促す枠 */
-.cta-box {
-    background-color: #fff4e6; /* 薄いオレンジの背景 */
-    border: 2px dashed #e67e22;
-    padding: 30px;
-    text-align: center;
-    border-radius: 15px;
-}
-
-.highlight {
-    font-size: 22px;
-    color: #d35400; /* 濃いめのオレンジ */
-    margin: 20px 0;
-}
-
-/* --- 施術内容（簡易版）デザイン --- */
-.service-summary {
-    padding: 60px 0;
-}
-
-.service-grid {
-    display: flex;
-    gap: 20px;
-    margin-bottom: 40px;
-    flex-wrap: wrap;
-}
-
-.service-card {
-    flex: 1;
-    min-width: 250px;
-    background: #f1f8f1; /* 薄い緑 */
-    padding: 25px;
-    border-radius: 15px;
-    text-align: center;
-}
-
-.service-card h3 {
-    color: #2d5a27;
-    margin-bottom: 15px;
-    font-size: 22px;
-    border-bottom: 2px solid #2d5a27;
-    display: inline-block;
-    padding-bottom: 5px;
-}
-
-.service-card p {
-    font-size: 16px;
-    margin: 0;
-}
-
-/* 準備についての枠 */
-.room-prep {
-    background-color: #fff;
-    border: 2px solid #e67e22; /* オレンジの枠 */
-    border-radius: 15px;
-    padding: 20px;
-    max-width: 700px;
-    margin: 0 auto;
-}
-
-.room-prep-inner {
-    text-align: center;
-}
-
-.room-prep h4 {
-    color: #e67e22;
-    margin: 0 0 10px;
-    font-size: 20px;
-}
-
-.room-prep strong {
-    color: #d35400;
-    font-size: 20px;
-}
-
-/* --- 患者様の声 デザイン --- */
-.testimonial {
-    padding: 60px 0;
+    flex: 1; min-width: 300px; background: #f9fdf9;
+    border: 2px solid #2d5a27; border-radius: 10px; padding: 20px;
 }
 
 .testimonial-card {
-    background: #fff;
-    border: 2px solid #e67e22; /* 温かみのあるオレンジの枠線 */
-    border-radius: 20px;
-    padding: 30px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-    position: relative;
+    background: #fff; border: 2px solid #e67e22;
+    border-radius: 20px; padding: 30px; position: relative;
 }
 
-/* 吹き出しのような装飾を少し追加 */
-.testimonial-card::before {
-    content: "“";
-    position: absolute;
-    top: -20px;
-    left: 30px;
-    font-size: 80px;
-    color: #fcece0;
-    font-family: serif;
-}
-
-.testimonial-flex {
-    display: flex;
-    gap: 30px;
-    align-items: flex-start;
-    flex-wrap: wrap;
-}
-
-.testimonial-image {
-    flex: 1;
-    min-width: 200px;
-    text-align: center;
-}
-
-.testimonial-image img {
-    width: 100%;
-    max-width: 180px;
-    border-radius: 10px;
-    border: 3px solid #f1f8f1;
-}
-
-.customer-info {
-    margin-top: 10px;
-}
-
-.customer-status {
-    font-size: 14px;
-    color: #666;
-}
-
-.testimonial-text {
-    flex: 3;
-    min-width: 300px;
-}
-
-.quote-tag {
-    display: inline-block;
-    background: #e67e22;
-    color: white;
-    padding: 2px 12px;
-    border-radius: 5px;
-    font-size: 14px;
-    margin-bottom: 15px;
-}
-
-.testimonial-text p {
-    margin-bottom: 15px;
-    font-size: 18px;
-    line-height: 1.7;
-}
-
-.testimonial-text strong {
-    background: linear-gradient(transparent 70%, #fff4e6 70%); /* オレンジのマーカー風 */
-    color: #d35400;
-}
-
-/* スマホ対応 */
-@media (max-width: 600px) {
-    .testimonial-flex {
-        flex-direction: column;
-        align-items: center;
-    }
-    .testimonial-text {
-        text-align: left;
-    }
-}
-
-/* --- ご利用の流れ（ホーム用）リニューアルデザイン --- */
-.summary-steps-box {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-    margin: 40px 0;
-    flex-wrap: wrap; /* スマホで縦に並ぶように */
-}
-
-/* 各ステップのカード */
-.s-step-card {
-    flex: 1;
-    min-width: 160px;
-    background: #fff;
-    border: 3px solid #2d5a27; /* 緑の枠線 */
-    border-radius: 15px;
-    padding: 20px 10px;
-    text-align: center;
-    position: relative;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-}
-
-/* 偶数番目のカードにオレンジのアクセント */
-.s-step-card.highlight {
-    border-color: #e67e22;
-}
-
-/* 数字のバッジ */
-.s-number {
-    background: #2d5a27;
-    color: #fff;
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    margin: 0 auto 10px;
-}
-
-.s-step-card.highlight .s-number {
-    background: #e67e22;
-}
-
-.s-step-card h4 {
-    margin: 0 0 10px;
-    color: #2d5a27;
-    font-size: 19px;
-}
-
-.s-step-card.highlight h4 {
-    color: #e67e22;
-}
-
-.s-step-card p {
-    font-size: 15px;
-    line-height: 1.4;
-    margin: 0;
-}
-
-/* 矢印の装飾 */
-.s-arrow-new {
-    font-size: 24px;
-    color: #ccc;
-    font-weight: bold;
-}
-
-/* スマホ表示の調整（縦並びのとき矢印を消す、または向きを変える） */
-@media (max-width: 768px) {
-    .summary-steps-box {
-        flex-direction: column;
-    }
-    .s-arrow-new {
-        transform: rotate(90deg); /* 矢印を下にむける */
-        margin: 10px 0;
-    }
-    .s-step-card {
-        width: 80%;
-    }
-}
-
-.faq-question {
-    width: 100%;
-    text-align: left;
-    padding: 20px;
-    font-size: 18px;
-    font-weight: bold;
-    background: #f1f8f1;
-    border: none;
-    border-bottom: 1px solid #ccc;
-    cursor: pointer;
-    position: relative;
-}
-
-/* ＋マークのようなものを右側につける */
-.faq-question::after {
-    content: "▼";
-    position: absolute;
-    right: 20px;
-    color: #2d5a27;
-}
-
-.faq-answer {
-    display: none; /* 最初は隠す */
-    padding: 20px;
-    background: #fff;
-    border-bottom: 1px solid #ccc;
-}
-
-/* ご利用の流れのスタイル */
-.flow {
-    padding: 60px 0;
-    background-color: #ffffff;
-}
-
-.flow-container {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.flow-item {
-    position: relative;
-    padding: 25px;
-    border: 3px solid #f1f8f1; /* 非常に薄い緑 */
-    border-radius: 15px;
-    background: #fff;
-    padding-left: 80px; /* 数字を入れるための余白 */
-}
-
-/* ステップ番号の丸 */
-.step-num {
-    position: absolute;
-    left: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: #e67e22; /* オレンジ */
-    color: white;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-    font-weight: bold;
-}
-
-.flow-item h3 {
-    margin-top: 0;
-    color: #2d5a27; /* 落ち着いた緑 */
-    font-size: 22px;
-}
-
-.flow-item p {
-    margin-bottom: 0;
-    font-size: 17px;
-}
-
-/* 補足情報のテキスト（紹介できますなど） */
-.sub-text {
-    display: block;
-    margin-top: 10px;
-    padding: 10px;
-    background-color: #f9f9f9;
-    border-left: 4px solid #2d5a27;
-    font-size: 15px;
-}
-
-.flow-item strong {
-    color: #d35400; /* 濃いオレンジ */
-}
-
-/* --- 料金ページ専用のデザイン --- */
-.price-section {
-    padding: 60px 0;
-}
-
-.price-intro {
-    text-align: center;
-    margin-bottom: 40px;
-}
-
-/* 料金表のスタイル */
-.price-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-    background: #fff;
-    border: 2px solid #2d5a27;
-}
-
-.price-table th, .price-table td {
-    border: 1px solid #ccc;
-    padding: 20px;
-    text-align: center;
-}
-
-.price-table th {
-    background-color: #f1f8f1; /* 薄い緑 */
-    color: #2d5a27;
-    font-size: 20px;
-}
-
-.price-large {
-    font-size: 24px;
-    font-weight: bold;
-    color: #333;
-}
-
-.price-highlight {
-    font-size: 30px;
-    font-weight: bold;
-    color: #d35400; /* 濃いオレンジ */
-}
-
-.price-notes {
-    background: #fdfdfd;
-    padding: 15px;
-    font-size: 16px;
-    color: #666;
-    border-radius: 5px;
-}
-
-/* スマホ表示のとき、表を横スクロールできるようにする（お好みで） */
-@media (max-width: 600px) {
-    .price-table {
-        font-size: 16px;
-    }
-    .price-table th, .price-table td {
-        padding: 10px;
-    }
-}
-
-/* --- お問い合わせページ専用 --- */
-.contact-section {
-    padding: 60px 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 40px;
-}
-
-.contact-box {
-    flex: 1;
-    min-width: 300px;
-}
-
-/* 電話ボックス */
-.tel-box {
-    background: #f1f8f1;
-    padding: 40px;
-    border-radius: 15px;
-    text-align: center;
-    border: 2px solid #2d5a27;
-}
-
-.tel-big {
-    font-size: 36px;
-    font-weight: bold;
-    color: #e67e22;
-    margin: 20px 0;
-}
-
-.business-hours {
-    background: #ffffff;
-    padding: 15px;
-    border-radius: 10px;
-    margin-bottom: 20px;
-}
-
-/* フォームのスタイル */
-.form-group {
-    margin-bottom: 20px;
-}
-
-.form-group label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 8px;
-    color: #2d5a27;
-}
-
-.form-group label span {
-    color: #d35400;
-    font-size: 14px;
-}
-
-.form-group input, .form-group textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 18px; /* 入力文字も大きく */
-    box-sizing: border-box;
-}
-
-.contact-form .btn-orange {
-    width: 100%;
-    border: none;
-    cursor: pointer;
-}
-
-/* --- プロフィールセクション --- */
-.profile {
-    padding: 60px 0;
-    background-color: #fdfdfd;
-}
-
-.profile-flex {
-    display: flex;
-    align-items: center;
-    gap: 40px;
-    flex-wrap: wrap; /* スマホでは縦並び */
-}
-
-.profile-image {
-    flex: 1;
-    min-width: 280px;
-    text-align: center;
-}
-
-.profile-image img {
-    width: 100%;
-    max-width: 300px;
-    height: auto;
-    border-radius: 50%; /* 写真を丸くして柔らかい印象に */
-    border: 5px solid #2d5a27; /* 落ち着いた緑の枠線 */
-}
-
-.profile-image .name {
-    margin-top: 15px;
-    font-size: 20px;
-}
-
-.profile-text {
-    flex: 2;
-    min-width: 300px;
-}
-
-.profile-text h3 {
-    color: #e67e22; /* 温かみのあるオレンジ */
-    font-size: 24px;
-    margin-bottom: 20px;
-}
-
-.profile-text p {
-    margin-bottom: 15px;
-    line-height: 1.9;
-}
-
-/* スマホ対応：中央寄せに調整 */
-@media (max-width: 768px) {
-    .profile-flex {
-        flex-direction: column;
-        text-align: left;
-    }
-}
-
-/* --- 施術内容詳細ページのデザイン --- */
-.service-detail {
-    padding: 60px 0;
-}
-
-.detail-box {
-    display: flex;
-    align-items: center;
-    gap: 40px;
-    margin-bottom: 80px;
-}
-
-/* 交互に左右を入れ替える設定（PCのみ） */
-.detail-box.rev {
-    flex-direction: row-reverse;
-}
-
-.detail-text {
-    flex: 1;
-}
-
-.service-tag {
-    background: #e67e22; /* オレンジ */
-    color: #fff;
-    padding: 4px 15px;
-    border-radius: 5px;
-    font-weight: bold;
-    font-size: 14px;
-    display: inline-block;
-    margin-bottom: 10px;
-}
-
-.detail-text h2 {
-    color: #2d5a27; /* 落ち着いた緑 */
-    font-size: 28px;
-    margin-bottom: 20px;
-}
-
-.detail-text p {
-    font-size: 18px;
-    line-height: 1.8;
-}
-
-/* 準備の案内カード */
-.service-notice {
-    padding-bottom: 80px;
-}
-
-.notice-card {
-    background: #f1f8f1;
-    border: 2px dashed #2d5a27;
-    padding: 40px;
-    border-radius: 20px;
-    text-align: center;
-}
-
-.notice-card h3 {
-    color: #2d5a27;
-    font-size: 24px;
-    margin-bottom: 15px;
-}
-
-/* スマホ対応 */
-@media (max-width: 768px) {
-    .detail-box, .detail-box.rev {
-        flex-direction: column;
-        margin-bottom: 50px;
-    }
-}
-
-/* ページトップへ戻るボタン */
 .back-to-top {
-    position: fixed;
-    right: 20px;
-    bottom: 20px;
-    width: 80px;
-    height: 80px;
-    background-color: #e67e22; /* 温かみのあるオレンジ */
-    color: white;
-    border: none;
-    border-radius: 50%; /* 丸い形 */
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 14px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    display: none; /* 最初は隠しておく */
-    z-index: 1000;
-    line-height: 1.2;
-}
-
-.back-to-top:hover {
-    background-color: #d35400; /* 重ねた時に少し濃く */
-}
-
-/* スマホでは少し小さくして邪魔にならないように */
-@media (max-width: 600px) {
-    .back-to-top {
-        width: 60px;
-        height: 60px;
-        font-size: 12px;
-        right: 15px;
-        bottom: 15px;
-    }
+    position: fixed; right: 20px; bottom: 20px;
+    width: 70px; height: 70px; background-color: #e67e22;
+    color: white; border-radius: 50%; border: none;
+    cursor: pointer; z-index: 1000; display: none;
 }
