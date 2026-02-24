@@ -15,7 +15,7 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 1000;
+    z-index: 2000;
     background: #fff;
     /* transitionは「高さに関わるもの」に絞るとスムーズです */
     transition: padding 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
@@ -35,14 +35,14 @@ body {
    2. メインコンテンツ（同期の要）
    ========================================== */
 main {
-    margin-top: 200px;
-    /* JSでmarginTopが変わる時、この設定があるから「ヌルッ」と動きます */
-    transition: margin-top 0.3s ease;
+    margin-top: 180px; /* PCでの初期値。JSが動く一瞬前の重なりを防ぐ */
+    transition: margin-top 0.3s ease; /* ヌルッと動く魔法 */
+    display: block;
 }
 
 @media (max-width: 768px) {
     main {
-        margin-top: 100px; /* スマホのヘッダー高さに合わせる */
+        margin-top: 100px; /* スマホでの初期値 */
     }
 }
 
@@ -78,13 +78,6 @@ main {
 
 .site-header.scrolled .main-nav a {
     padding: 8px 0; /* メニューも細く */
-}
-
-/* 色の定義 */
-header {
-    background-color: #ffffff; /* 白 */
-    border-bottom: 4px solid #2d5a27; /* 落ち着いた緑 */
-    padding: 20px 0;
 }
 
 .container {
