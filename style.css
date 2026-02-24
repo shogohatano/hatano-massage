@@ -23,7 +23,7 @@ body {
 
 /* PC用の設定 */
 .header-placeholder {
-    height: 170px; /* PCヘッダーの実際の高さに合わせて調整 */
+    height: 220px; /* PCヘッダーの実際の高さに合わせて調整 */
     display: block; /* 確実に見えるように */
 }
 
