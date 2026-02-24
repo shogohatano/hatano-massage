@@ -1,24 +1,31 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // 使う要素を最初に全部つかまえておく
+    // 使う要素をつかまえる
     const header = document.querySelector('.site-header');
+    const main = document.querySelector('main');
     const topBtn = document.getElementById('back-to-top');
     const menuToggle = document.getElementById('menu-toggle');
     const mainNav = document.getElementById('main-nav');
 
-    // --- スクロールした時の処理をまとめる ---
-    window.addEventListener('scroll', function() {
+    /**
+     * ヘッダーの高さとメインコンテンツの余白を同期させる関数
+     */
+    function syncHeaderHeight() {
+        if (!header || !main) return;
+
         let scrollY = window.pageYOffset || document.documentElement.scrollTop;
 
-        // 1. ヘッダーを小さくする (150pxでON、80pxでOFF)
-        if (header) {
-            if (scrollY > 150) {
-                header.classList.add('scrolled');
-            } else if (scrollY < 80) {
-                header.classList.remove('scrolled');
-            }
+        // 1. ヘッダーの縮小クラスの付け外し（50pxで統一！）
+        if (scrollY > 50) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
         }
 
-        // 2. 上に戻るボタンを出す (300px以上)
+        // 2. ★超重要★ 変化したヘッダーの「実際の高さ」を測ってmainに渡す
+        const currentHeaderHeight = header.offsetHeight;
+        main.style.marginTop = currentHeaderHeight + 'px';
+
+        // 3. 上に戻るボタンの表示
         if (topBtn) {
             if (scrollY > 300) {
                 topBtn.style.display = "block";
@@ -26,11 +33,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 topBtn.style.display = "none";
             }
         }
-    });
+    }
 
-    // --- クリックイベントをまとめる ---
+    // --- イベント登録 ---
 
-    // 上に戻る
+    // スクロール、読み込み、画面サイズ変更、すべてで同期させる
+    window.addEventListener('scroll', syncHeaderHeight);
+    window.addEventListener('resize', syncHeaderHeight);
+    // すでにDOMContentLoaded内なので直接実行
+    syncHeaderHeight();
+
+    // 上に戻るクリック
     if (topBtn) {
         topBtn.onclick = function() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -53,36 +66,4 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
-
-        /**
-     * ヘッダーの高さとメインコンテンツの余白を同期させる関数
-     */
-    function syncHeaderHeight() {
-        const header = document.querySelector('.site-header');
-        const main = document.querySelector('main');
-        
-        if (!header || !main) return;
-
-        // スクロール量が50pxを超えたら .scrolled クラスを付け外し
-        if (window.scrollY > 50) {
-            header.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
-        }
-
-        // ★ここがプロの技★
-        // 変化した「今のヘッダーの高さ」を正確に測り、mainの上の余白に代入する
-        const currentHeaderHeight = header.offsetHeight;
-        main.style.marginTop = currentHeaderHeight + 'px';
-    }
-
-    // 1. スクロールするたびに実行
-    window.addEventListener('scroll', syncHeaderHeight);
-
-    // 2. ページを読み込んだ瞬間に実行（最初から重なるのを防ぐ）
-    window.addEventListener('DOMContentLoaded', syncHeaderHeight);
-
-    // 3. 画面サイズを変えた時も再計算（PC/スマホ切り替え対策）
-    window.addEventListener('resize', syncHeaderHeight);
-
 });
