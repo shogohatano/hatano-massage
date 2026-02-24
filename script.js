@@ -1,35 +1,50 @@
 document.addEventListener('DOMContentLoaded', function() {
     const header = document.querySelector('.site-header');
     const main = document.querySelector('main');
-    const topBtn = document.querySelector('.back-to-top'); // クラス名に合わせて修正
+    const topBtn = document.querySelector('#back-to-top'); // ID指定に修正
+    const menuToggle = document.getElementById('menu-toggle');
+    const mainNav = document.getElementById('main-nav');
 
-    function syncHeight() {
-        if (!header || !main) return;
-
-        // 1. スクロールのクラス付け替え
+    // --- 1. ヘッダーの高さとスクロールの制御関数 ---
+    function updateHeaderHeight() {
+     // スクロール位置でクラス付け替え
         if (window.scrollY > 50) {
             header.classList.add('scrolled');
         } else {
             header.classList.remove('scrolled');
         }
 
-        // 2. ★最重要★ ヘッダーの実際の高さを測ってmainの余白にする
-        // setTimeoutを少し入れることで、CSSの変化が終わった後の高さを正確に取ります
-        setTimeout(() => {
-            const h = header.offsetHeight;
-            main.style.marginTop = h + 'px';
-        }, 10);
-
-        // 3. トップへ戻るボタン
         if (topBtn) {
             topBtn.style.display = (window.scrollY > 300) ? "block" : "none";
         }
     }
 
-    // イベント登録
-    window.addEventListener('scroll', syncHeight);
-    window.addEventListener('resize', syncHeight);
-    
-    // 最初の読み込み時に実行
-    syncHeight();
+    // --- 2. スマホ用メニューの開閉処理 ---
+    if (menuToggle && mainNav) {
+        menuToggle.onclick = function() {
+            menuToggle.classList.toggle('open');
+            mainNav.classList.toggle('open');
+        };
+
+        // メニューリンクをクリックしたら閉じる
+        const navLinks = mainNav.querySelectorAll('a');
+        navLinks.forEach(link => {
+            link.onclick = function() {
+                menuToggle.classList.remove('open');
+                mainNav.classList.remove('open');
+            };
+        });
+    }
+
+    // --- 3. イベント登録（ここで正しい名前を呼びます） ---
+    window.addEventListener('scroll', updateHeaderHeight);
+     // 最初の読み込み時にも実行
+    updateHeaderHeight();
+
+    // トップへ戻るボタンのクリックイベント
+    if (topBtn) {
+        topBtn.onclick = function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+    }
 });
