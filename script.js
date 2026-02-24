@@ -53,4 +53,36 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
+
+        /**
+     * ヘッダーの高さとメインコンテンツの余白を同期させる関数
+     */
+    function syncHeaderHeight() {
+        const header = document.querySelector('.site-header');
+        const main = document.querySelector('main');
+        
+        if (!header || !main) return;
+
+        // スクロール量が50pxを超えたら .scrolled クラスを付け外し
+        if (window.scrollY > 50) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+
+        // ★ここがプロの技★
+        // 変化した「今のヘッダーの高さ」を正確に測り、mainの上の余白に代入する
+        const currentHeaderHeight = header.offsetHeight;
+        main.style.marginTop = currentHeaderHeight + 'px';
+    }
+
+    // 1. スクロールするたびに実行
+    window.addEventListener('scroll', syncHeaderHeight);
+
+    // 2. ページを読み込んだ瞬間に実行（最初から重なるのを防ぐ）
+    window.addEventListener('DOMContentLoaded', syncHeaderHeight);
+
+    // 3. 画面サイズを変えた時も再計算（PC/スマホ切り替え対策）
+    window.addEventListener('resize', syncHeaderHeight);
+
 });

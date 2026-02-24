@@ -8,7 +8,7 @@ body {
 }
 
 /* ==========================================
-   1. 基本設定（PC・スマホ共通）
+   1. ヘッダーの基本設定（常に浮いている状態）
    ========================================== */
 .site-header {
     position: fixed;
@@ -17,110 +17,60 @@ body {
     width: 100%;
     z-index: 1000;
     background: #fff;
-    transition: all 0.3s ease;
+    /* transitionは「高さに関わるもの」に絞るとスムーズです */
+    transition: padding 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
     box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
 
-/* PC用の設定 */
-.header-placeholder {
-    height: 220px; /* PCヘッダーの実際の高さに合わせて調整 */
-    display: block; /* 確実に見えるように */
-}
-
-/* スマホ用の設定（@mediaの中） */
-@media (max-width: 768px) {
-    .header-placeholder {
-        height: 80px; /* スマホヘッダーの高さ。ロゴ＋ハンバーガーの高さくらいに */
-    }
-}
-.container {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
+/* ヘッダーの中身の余白（PC時） */
 .header-top {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 0;
-}
-
-/* ロゴ・電話番号の基本スタイル */
-.logo-text { text-decoration: none; display: block; }
-.sub-logo { display: block; font-size: 13px; color: #2d5a27; font-weight: bold; }
-.logo-text h1 { font-size: 26px; color: #2d5a27; margin: 0; }
-.header-contact { text-align: right; }
-.header-tel { font-size: 28px; font-weight: bold; color: #e67e22; text-decoration: none; }
-
-/* ナビゲーション基本 */
-.main-nav { border-top: 1px solid #f0f0f0; }
-.main-nav ul { display: flex; list-style: none; margin: 0; padding: 0; }
-.main-nav li { flex: 1; }
-.main-nav a {
-    display: block; padding: 15px 0; text-align: center; text-decoration: none;
-    color: #333; font-weight: bold; transition: 0.3s;
+    padding: 15px 0; /* スクロール前はゆったり */
+    transition: padding 0.3s ease;
 }
 
 /* ==========================================
-   2. PC用の設定（ハンバーガーを隠す）
+   2. メインコンテンツ（同期の要）
    ========================================== */
-.menu-toggle {
-    display: none; /* PCでは絶対に出さない */
+main {
+    /* JSでmarginTopが変わる時、この設定があるから「ヌルッ」と動きます */
+    transition: margin-top 0.3s ease;
 }
 
 /* ==========================================
-   3. スクロールした時の設定（.scrolled）
+   3. スクロールした後のスタイル (.scrolled)
    ========================================== */
-.site-header.scrolled { padding: 5px 0; }
-.site-header.scrolled .logo-text h1 { font-size: 20px; }
+/* JSでこのクラスが付与されると、以下の設定が発動します */
+.site-header.scrolled {
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.site-header.scrolled .header-top {
+    padding: 5px 0; /* スクロール後はギュッと細くする */
+}
+
+.site-header.scrolled .logo-text h1 {
+    font-size: 20px; /* ロゴも小さくして圧迫感を減らす */
+}
+
 .site-header.scrolled .sub-logo,
 .site-header.scrolled .contact-label,
-.site-header.scrolled .header-hours { display: none; }
-.site-header.scrolled .header-tel { font-size: 20px; }
-.site-header.scrolled .main-nav a { padding: 8px 0; font-size: 14px; }
+.site-header.scrolled .header-hours {
+    opacity: 0;
+    visibility: hidden;
+    height: 0;
+    margin: 0;
+    display: none; /* 不要な情報を消してスリム化 */
+}
 
-/* ==========================================
-   4. スマホ用の設定（ここが重要！）
-   ========================================== */
-@media (max-width: 768px) {
-    .header-placeholder { height: 100px; } /* スマホは土台を少し低く */
+.site-header.scrolled .header-tel {
+    font-size: 20px; /* 電話番号もスリムに */
+}
 
-    /* ハンバーガーボタンを出す */
-    .menu-toggle {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        width: 30px;
-        height: 22px;
-        background: none;
-        border: none;
-        cursor: pointer;
-        z-index: 2000;
-    }
-    .menu-toggle span {
-        display: block; width: 100%; height: 3px; background: #2d5a27; transition: 0.3s;
-    }
-
-    /* ナビゲーションを横から出す設定 */
-    .main-nav {
-        position: fixed;
-        top: 0;
-        right: -100%; /* 右に隠す */
-        width: 70%;
-        height: 100vh;
-        background: #fff;
-        padding-top: 80px;
-        transition: 0.4s;
-        border: none;
-        box-shadow: -5px 0 15px rgba(0,0,0,0.1);
-    }
-    .main-nav.open { right: 0; } /* 開く */
-    .main-nav ul { flex-direction: column; }
-    .main-nav a { text-align: left; padding: 15px 20px; border-bottom: 1px solid #eee; }
-
-    /* スマホでは電話番号をヘッダー内から一旦隠す（メニュー内に入れるなら） */
-    .header-contact { display: none; }
+.site-header.scrolled .main-nav a {
+    padding: 8px 0; /* メニューも細く */
 }
 
 /* 色の定義 */
