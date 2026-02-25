@@ -45,26 +45,28 @@ main {
 }
 
 /* スクロール時の変化 (.scrolled) */
-.site-header.scrolled {
+@media (min-width: 769px) {
+    .site-header.scrolled {
     box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-}
+    }
 
-.site-header.scrolled .header-top {
-    padding: 5px 0;
-}
+    .site-header.scrolled .header-top {
+        padding: 5px 0;
+    }
 
-.site-header.scrolled .logo-text h1 {
-    font-size: 20px;
-}
+    .site-header.scrolled .logo-text h1 {
+        font-size: 20px;
+    }
 
-.site-header.scrolled .sub-logo,
-.site-header.scrolled .contact-label,
-.site-header.scrolled .header-hours {
-    display: none;
-}
+    .site-header.scrolled .sub-logo,
+    .site-header.scrolled .contact-label,
+    .site-header.scrolled .header-hours {
+        display: none;
+    }
 
-.site-header.scrolled .header-tel {
-    font-size: 20px;
+    .site-header.scrolled .header-tel {
+        font-size: 20px;
+    }
 }
 
 /* PCサイズ（769px以上）ではハンバーガーボタンを隠す */
@@ -320,7 +322,84 @@ main {
     font-size: 20px;
 }
 
-/* --- 患者様の声 デザイン --- */
+/* プロフィールセクション全体 (index.html)*/
+.profile-section {
+    background-color: #fdfaf5; /* 柔らかいベージュで温かみを出す */
+    padding: 80px 0;
+    margin: 50px 0;
+}
+
+.profile-flex {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    flex-wrap: wrap; /* スマホで縦に並ぶように */
+}
+
+/* 画像部分 */
+.profile-image {
+    flex: 1;
+    min-width: 300px;
+    text-align: center;
+}
+
+.profile-image img {
+    width: 100%;
+    max-width: 350px;
+    border-radius: 20px; /* 角を丸くして優しさを演出 */
+    box-shadow: 10px 10px 0px #e0ecd0; /* 薄い緑の影でおしゃれに */
+    object-fit: cover;
+}
+
+.profile-image .name {
+    margin-top: 15px;
+    font-size: 1.2rem;
+    color: #2d5a27;
+}
+
+/* テキスト部分 */
+.profile-text {
+    flex: 1.5;
+    min-width: 300px;
+}
+
+.profile-text h3 {
+    font-size: 24px;
+    color: #2d5a27;
+    margin-bottom: 20px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+/* 見出しの下に短い線を入れる */
+.profile-text h3::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background-color: #88b04b;
+}
+
+.profile-text p {
+    line-height: 1.8;
+    margin-bottom: 15px;
+    color: #444;
+}
+
+/* スマホ用の調整 */
+@media (max-width: 768px) {
+    .profile-flex {
+        flex-direction: column; /* 縦並びに */
+        gap: 30px;
+    }
+    .profile-text h3 {
+        font-size: 20px;
+    }
+}
+
+/* --- 患者様の声 デザイン (index.html)--- */
 .testimonial {
     padding: 60px 0;
 }
@@ -411,7 +490,46 @@ main {
     }
 }
 
-/* --- ご利用の流れ（ホーム用）リニューアルデザイン --- */
+/* --- FAQセクションのデザイン(index.html) --- */
+.faq-question {
+    width: 100%;
+    text-align: left;
+    padding: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    background: #f1f8f1;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    cursor: pointer;
+    position: relative;
+}
+
+/* ＋マークのようなものを右側につける */
+.faq-question::after {
+    content: "▼";
+    position: absolute;
+    right: 20px;
+    color: #2d5a27;
+}
+
+.faq-answer {
+    display: none; /* 最初は隠す */
+    padding: 20px;
+    background: #fff;
+    border-bottom: 1px solid #ccc;
+}
+
+/* activeクラスがついた時だけ、答えを表示する */
+.faq-item.active .faq-answer {
+    display: block;
+}
+
+/* activeクラスがついた時、三角を逆向きにする（お好みで！） */
+.faq-item.active .faq-question::after {
+    content: "▲";
+}
+
+/* --- ご利用の流れ（index.html) --- */
 .summary-steps-box {
     display: flex;
     justify-content: space-between;
@@ -492,96 +610,6 @@ main {
     .s-step-card {
         width: 80%;
     }
-}
-
-.faq-question {
-    width: 100%;
-    text-align: left;
-    padding: 20px;
-    font-size: 18px;
-    font-weight: bold;
-    background: #f1f8f1;
-    border: none;
-    border-bottom: 1px solid #ccc;
-    cursor: pointer;
-    position: relative;
-}
-
-/* ＋マークのようなものを右側につける */
-.faq-question::after {
-    content: "▼";
-    position: absolute;
-    right: 20px;
-    color: #2d5a27;
-}
-
-.faq-answer {
-    display: none; /* 最初は隠す */
-    padding: 20px;
-    background: #fff;
-    border-bottom: 1px solid #ccc;
-}
-
-/* activeクラスがついた時だけ、答えを表示する */
-.faq-item.active .faq-answer {
-    display: block;
-}
-
-/* activeクラスがついた時、三角を逆向きにする（お好みで！） */
-.faq-item.active .faq-question::after {
-    content: "▲";
-}
-
-/* ご利用の流れのスタイル */
-.flow {
-    padding: 60px 0;
-    background-color: #ffffff;
-}
-
-.flow-container {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.flow-item {
-    position: relative;
-    padding: 25px;
-    border: 3px solid #f1f8f1; /* 非常に薄い緑 */
-    border-radius: 15px;
-    background: #fff;
-    padding-left: 80px; /* 数字を入れるための余白 */
-}
-
-/* ステップ番号の丸 */
-.step-num {
-    position: absolute;
-    left: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: #e67e22; /* オレンジ */
-    color: white;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-    font-weight: bold;
-}
-
-.flow-item h3 {
-    margin-top: 0;
-    color: #2d5a27; /* 落ち着いた緑 */
-    font-size: 22px;
-}
-
-.flow-item p {
-    margin-bottom: 0;
-    font-size: 17px;
 }
 
 /* 補足情報のテキスト（紹介できますなど） */
@@ -725,62 +753,6 @@ main {
     width: 100%;
     border: none;
     cursor: pointer;
-}
-
-/* --- プロフィールセクション --- */
-.profile {
-    padding: 60px 0;
-    background-color: #fdfdfd;
-}
-
-.profile-flex {
-    display: flex;
-    align-items: center;
-    gap: 40px;
-    flex-wrap: wrap; /* スマホでは縦並び */
-}
-
-.profile-image {
-    flex: 1;
-    min-width: 280px;
-    text-align: center;
-}
-
-.profile-image img {
-    width: 100%;
-    max-width: 300px;
-    height: auto;
-    border-radius: 50%; /* 写真を丸くして柔らかい印象に */
-    border: 5px solid #2d5a27; /* 落ち着いた緑の枠線 */
-}
-
-.profile-image .name {
-    margin-top: 15px;
-    font-size: 20px;
-}
-
-.profile-text {
-    flex: 2;
-    min-width: 300px;
-}
-
-.profile-text h3 {
-    color: #e67e22; /* 温かみのあるオレンジ */
-    font-size: 24px;
-    margin-bottom: 20px;
-}
-
-.profile-text p {
-    margin-bottom: 15px;
-    line-height: 1.9;
-}
-
-/* スマホ対応：中央寄せに調整 */
-@media (max-width: 768px) {
-    .profile-flex {
-        flex-direction: column;
-        text-align: left;
-    }
 }
 
 /* --- 施術内容詳細ページのデザイン --- */

@@ -4,10 +4,18 @@ document.addEventListener('DOMContentLoaded', function() {
     const topBtn = document.querySelector('#back-to-top'); // ID指定に修正
     const menuToggle = document.getElementById('menu-toggle');
     const mainNav = document.getElementById('main-nav');
+    const form = document.getElementById("contact-form");
+    const status = document.getElementById("form-status");
 
     // --- 1. ヘッダーの高さとスクロールの制御関数 ---
     function updateHeaderHeight() {
-     // スクロール位置でクラス付け替え
+        // 画面幅が768px以下のとき（スマホ）は、計算をストップして何もしない
+        if (window.innerWidth <= 768) {
+            document.body.style.paddingTop = '0'; // 余計な余白をリセット
+            return; 
+        }
+        // --- ここからはPC（769px以上）のみ動く ---
+        // スクロール位置でクラス付け替え
         if (window.scrollY > 50) {
             header.classList.add('scrolled');
         } else {
@@ -36,12 +44,13 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // --- 3. よくある質問（アコーディオン）の処理 ---
+    // --- 3. よくある質問（FAQ）の開閉 ---
     const faqQuestions = document.querySelectorAll('.faq-question');
     faqQuestions.forEach(question => {
         question.onclick = function() {
-            const faqItem = this.closest('.faq-item');// 親要素の .faq-item を探して active クラスを付け外しする
-            faqItem.classList.toggle('active'); // activeクラスを付け外し
+            // 親要素の .faq-item を探して active クラスを付け外しする
+            const faqItem = this.closest('.faq-item');
+            faqItem.classList.toggle('active');
         };
     });
 
@@ -55,5 +64,48 @@ document.addEventListener('DOMContentLoaded', function() {
         topBtn.onclick = function() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         };
+    }
+});
+
+// お問い合わせフォームの制御
+document.addEventListener("DOMContentLoaded", function() {
+    const contactForm = document.querySelector(".contact-form");
+    
+    if (contactForm) {
+        contactForm.addEventListener("submit", async function(event) {
+            event.preventDefault(); // 外のサイトへ飛ぶのを止める
+            
+            const submitBtn = contactForm.querySelector(".submit-btn");
+            const originalBtnText = submitBtn.textContent;
+            
+            // 送信中表示
+            submitBtn.disabled = true;
+            submitBtn.textContent = "送信中...";
+
+            const formData = new FormData(contactForm);
+
+            try {
+                const response = await fetch(contactForm.action, {
+                    method: contactForm.method,
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    // 送信成功！ 自分で作った thanks.html へジャンプ
+                    window.location.href = "thanks.html";
+                } else {
+                    alert("エラーが発生しました。時間を置いて再度お試しください。");
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalBtnText;
+                }
+            } catch (error) {
+                alert("通信エラーが発生しました。インターネット接続を確認してください。");
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalBtnText;
+            }
+        });
     }
 });
