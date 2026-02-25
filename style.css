@@ -639,8 +639,10 @@ main {
     }
 /* 「詳しい手順をすべて見る」ボタンのスマホ専用調整 */
     .center-btn {
+        display: flex;
         margin-top: 40px !important; /* スマホでは少し広めに間隔をあける */
-        padding: 0 15px;  
+        padding: 0 15px;
+        justify-content: center;  
         margin-bottom: 50px !important; /* これで下のボックスを押し下げます */          /* 画面端にボタンがくっつかないように */
     }
 
