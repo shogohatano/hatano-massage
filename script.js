@@ -36,7 +36,16 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // --- 3. イベント登録（ここで正しい名前を呼びます） ---
+    // --- 3. よくある質問（アコーディオン）の処理 ---
+    const faqQuestions = document.querySelectorAll('.faq-question');
+    faqQuestions.forEach(question => {
+        question.onclick = function() {
+            const faqItem = this.closest('.faq-item');// 親要素の .faq-item を探して active クラスを付け外しする
+            faqItem.classList.toggle('active'); // activeクラスを付け外し
+        };
+    });
+
+    // --- 4. イベント登録（ここで正しい名前を呼びます） ---
     window.addEventListener('scroll', updateHeaderHeight);
      // 最初の読み込み時にも実行
     updateHeaderHeight();

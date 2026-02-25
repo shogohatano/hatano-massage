@@ -522,6 +522,16 @@ main {
     border-bottom: 1px solid #ccc;
 }
 
+/* activeクラスがついた時だけ、答えを表示する */
+.faq-item.active .faq-answer {
+    display: block;
+}
+
+/* activeクラスがついた時、三角を逆向きにする（お好みで！） */
+.faq-item.active .faq-question::after {
+    content: "▲";
+}
+
 /* ご利用の流れのスタイル */
 .flow {
     padding: 60px 0;
