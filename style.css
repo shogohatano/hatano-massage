@@ -612,6 +612,27 @@ main {
     }
 }
 
+@media (max-width: 768px) {
+    /* 「詳しい手順をすべて見る」ボタンのスマホ専用調整 */
+    .center-btn {
+        margin-top: 40px !important; /* スマホでは少し広めに間隔をあける */
+        padding: 0 15px;  
+        margin-bottom: 50px !important; /* これで下のボックスを押し下げます */          /* 画面端にボタンがくっつかないように */
+    }
+
+    .center-btn .btn-orange {
+        display: inline-block;      /* ボタンとしての性格を維持 */
+        width: 90%;                 /* 画面の9割くらいの幅にする */
+        max-width: 350px;           /* 大きくなりすぎない上限 */
+        padding: 18px 0;            /* 上下の厚みを出してタップしやすく */
+        font-size: 18px;            /* 文字を少し大きくして目立たせる */
+        font-weight: bold;
+        text-decoration: none;
+        border-radius: 50px;        /* 角を丸くして柔らかい印象に */
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* 軽い影をつけて浮き立たせる */
+    }
+}
+
 /* 補足情報のテキスト（紹介できますなど） */
 .sub-text {
     display: block;
