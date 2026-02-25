@@ -16,14 +16,14 @@ body {
 }
 
 /* ==========================================
-   2. ヘッダー（固定・動的制御）
+   2. ヘッダー（基本設定：PC・スマホ共通）
    ========================================== */
 .site-header {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 2000; /* 最前面 */
+    z-index: 2000;
     background: #fff;
     border-bottom: 4px solid #2d5a27;
     transition: all 0.3s ease-in-out;
@@ -35,21 +35,22 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 15px 0;
-    transition: padding 0.3s ease;
 }
 
-/* メインコンテンツの開始位置 */
+/* メインコンテンツの開始位置（PCデフォルト） */
 main {
-    padding-top: 180px; /* 初期状態のヘッダーの高さと同じにする */
-    margin-top: 0 !important; /* JSの上書きを防ぐ */
+    padding-top: 180px; 
 }
 
-/* スクロール時の変化 (.scrolled) */
+/* ==========================================
+   PCサイズ専用（769px以上）の設定
+   ========================================== */
 @media (min-width: 769px) {
-    .site-header.scrolled {
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    .menu-toggle {
+        display: none !important;
     }
 
+    /* スクロール時の変化 */
     .site-header.scrolled .header-top {
         padding: 5px 0;
     }
@@ -63,67 +64,84 @@ main {
     .site-header.scrolled .header-hours {
         display: none;
     }
-
-    .site-header.scrolled .header-tel {
-        font-size: 20px;
-    }
 }
 
-/* PCサイズ（769px以上）ではハンバーガーボタンを隠す */
-@media (min-width: 769px) {
-    .menu-toggle {
+/* ==========================================
+   スマホサイズ専用（768px以下）の設定
+   ========================================== */
+@media (max-width: 768px) {
+    /* ヘッダーをスリム化 */
+    .site-header {
+        padding: 5px 0 !important;
+        border-bottom: 2px solid #2d5a27;
+    }
+
+    .header-top {
+        padding: 8px 15px !important;
+        max-width: 100%;
+    }
+
+    /* スマホで不要な情報を隠す */
+    .header-contact,
+    .sub-logo,
+    .contact-label,
+    .header-hours {
         display: none !important;
     }
-}
 
-/* --- スマホ用ナビゲーションのデザイン --- */
-@media (max-width: 768px) {
-    /* 1. ハンバーガーボタンの見た目 */
+    .logo-text h1 {
+        font-size: 18px !important;
+        margin: 0 !important;
+        line-height: 1.2;
+    }
+
+    /* コンテンツの開始位置をスマホ用に調整 */
+    main {
+        padding-top: 70px !important;
+    }
+
+    /* ハンバーガーボタンの表示 */
     .menu-toggle {
-        display: flex !important; /* PCでは消していたボタンを表示 */
+        display: flex !important;
         flex-direction: column;
         justify-content: space-between;
         width: 30px;
         height: 22px;
         background: none;
         border: none;
-        cursor: pointer;
-        padding: 0;
-        position: relative;
-        z-index: 3000; /* メニューより上に配置 */
+        z-index: 3000;
+        margin-left: auto;
     }
 
     .menu-toggle span {
         display: block;
         width: 100%;
         height: 3px;
-        background-color: #2d5a27; /* サイトカラーの緑 */
+        background-color: #2d5a27;
         transition: 0.3s;
         border-radius: 3px;
     }
 
-    /* 2. メニュー本体（右からスライドイン） */
+    /* メニュー本体のスライド */
     .main-nav {
         position: fixed;
         top: 0;
-        right: -100%; /* 最初は画面の外に隠す */
-        width: 80%; /* 画面の8割を覆う */
+        right: -100%;
+        width: 80%;
         height: 100vh;
         background-color: #fff;
         padding: 100px 20px 20px;
         box-shadow: -5px 0 15px rgba(0,0,0,0.1);
-        transition: 0.4s ease; /* スライドの速度 */
+        transition: 0.4s ease;
         z-index: 2500;
-        border-top: none; /* PC版の線を消す */
     }
 
-    /* メニューが開いた時 */
     .main-nav.open {
         right: 0;
     }
 
     .main-nav ul {
-        flex-direction: column; /* 縦並びに変更 */
+        flex-direction: column;
     }
 
     .main-nav li {
@@ -137,7 +155,7 @@ main {
         font-size: 18px;
     }
 
-    /* ボタンを「×」にするアニメーション */
+    /* ✕アニメーション */
     .menu-toggle.open span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
     .menu-toggle.open span:nth-child(2) { opacity: 0; }
     .menu-toggle.open span:nth-child(3) { transform: translateY(-10px) rotate(-45deg); }
