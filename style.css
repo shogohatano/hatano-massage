@@ -616,6 +616,15 @@ main {
     font-weight: bold;
 }
 
+/* 「詳しい手順をすべて見る」ボタンの配置 */
+.center-btn {
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 40px; 
+    position: relative;
+    z-index: 10;
+}
+
 /* スマホ表示の調整（縦並びのとき矢印を消す、または向きを変える） */
 @media (max-width: 768px) {
     .summary-steps-box {
@@ -628,10 +637,7 @@ main {
     .s-step-card {
         width: 80%;
     }
-}
-
-@media (max-width: 768px) {
-    /* 「詳しい手順をすべて見る」ボタンのスマホ専用調整 */
+/* 「詳しい手順をすべて見る」ボタンのスマホ専用調整 */
     .center-btn {
         margin-top: 40px !important; /* スマホでは少し広めに間隔をあける */
         padding: 0 15px;  
