@@ -311,17 +311,8 @@ main {
 
 /* プロフィール・スマホ対応 */
 @media (max-width: 768px) {
-    .profile-flex {
-        flex-direction: column; 
-        gap: 20px; /* 画像と名前の間隔を少し詰める */
-    }
-
-    .profile-image img {
-        width: 60%; max-width: 200px;
-        height: auto;
-        border-radius: 15px;
-        box-shadow: 5px 5px 0px #e0ecd0;
-    }
+    .profile-flex { flex-direction: column; gap: 20px; }
+    .profile-image img { width: 60%; max-width: 200px; height: auto; border-radius: 15px; box-shadow: 5px 5px 0px #e0ecd0; }
     .profile-image .name { font-size: 1.1rem; margin-top: 10px; }
     .profile-text { text-align: center; } /* スマホではテキストも中央寄せが綺麗 */
     .profile-text h3 { font-size: 20px; }
@@ -671,29 +662,19 @@ main {
     }
 }
 
-/* --- フッター & その他 (Footer & Misc) --- */
-.site-footer {
-    margin-top: 60px; padding: 10px 0; background: #fff; border-top: 1px solid #eee; color: #888; font-size: 14px;
-}
-.footer-content { 
-    display: flex; justify-content: center; align-items: center; gap: 20px;
-}
-.footer-name {
-    font-weight: bold; color: #666;
-}
-.copyright {
-    margin-top: 10px; font-size: 12px; opacity: 0.8;
-}
+/* --- フッター (footer) --- */
+.site-footer { margin-top: 60px; padding: 10px 0; background: #fff; border-top: 1px solid #eee; color: #888; font-size: 14px; }
+.footer-content { display: flex; justify-content: center; align-items: center; gap: 20px; }
+.footer-name { font-weight: bold; color: #666; }
+.copyright { margin-top: 10px; font-size: 12px; opacity: 0.8; }
 
 /* フッター：スマホ対応 */
 @media (max-width: 768px) {
-    .site-footer {
-        padding: 10px 15px;
-    }
-    .footer-content{
-        display: flex; margin: 5px 0;
-    }
+    .site-footer { padding: 10px 15px; }
+    .footer-content{ display: flex; margin: 5px 0; }
 }
+
+/* --- トップへ戻るボタン (Back to Top) --- */
 .back-to-top {
     position: fixed; right: 20px; bottom: 20px;
     display: none; width: 80px; height: 80px;
@@ -706,6 +687,8 @@ main {
 .back-to-top:hover {
     background-color: #d35400;
 }
+
+/* トップへ戻るボタン：スマホ対応 */
 @media (max-width: 600px) {
     .back-to-top { width: 60px; height: 60px; right: 15px; bottom: 15px; font-size: 12px; }
 }
