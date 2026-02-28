@@ -647,7 +647,7 @@ main {
     .s-number { display: flex; justify-content: center; align-items: center; width: 45px; height: 45px; margin: 0; font-size: 30px; border-radius: 50%; }
     .s-step-text { flex: 1; max-width: 180px; text-align: left; padding: 0;}
     .s-step-text h4 { font-size: 25px; margin-bottom: 4px; color: #2d5a27; }
-    .s-step-text p { font-size: 20px; line-height: 1.4; margin: 0; color: #666; }
+    .s-step-text p { font-size: 20px; white-space: nowrap; line-height: 1.4; margin: 0; color: #666; }
     .s-icon-wrap { width: 65px; height: 65px; margin: 0; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;}
     .s-step-icon { width: 100%; height: auto; }
     .s-arrow-new { text-align: center; margin: 5px auto; display: block; }
