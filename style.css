@@ -276,68 +276,15 @@ main {
 }
 
 @media (max-width: 768px) {
-    .problems {
-        padding: 40px 15px;
-    }
-
-    .problem-grid {
-        margin-bottom: 0; /* マイナスマージンをリセット */
-        gap: 15px;
-    }
-
-    .problem-item {
-        min-width: 100%;
-        padding: 20px 15px; /* 内側の余白をしっかり取る */
-        box-sizing: border-box;
-    }
-
-    /* 見出しをスマホサイズに */
-    .problem-item h3 {
-        font-size: 20px; /* 30pxからサイズダウン */
-        margin-bottom: 15px;
-    }
-
-    /* 横並びの調整 */
-    .problem-content {
-        display: flex;
-        flex-direction: row; /* 横並び維持 */
-        align-items: center; 
-        justify-content: space-between;
-        gap: 10px;
-    }
-
-    /* リスト部分 */
-    .problem-content ul {
-        flex: 1;
-        padding-left: 20px; /* 50pxから大幅カット */
-        margin-bottom: 0;
-        list-style-type: none; /* デフォルトを消して自作する */
-    }
-
-    .problem-content ul li {
-        font-size: 14px; /* 18pxからサイズダウン */
-        margin-bottom: 8px;
-        position: relative;
-        padding-left: 1.2em;
-        line-height: 1.4;
-    }
-
-    /* チェックマークの個別調整（はみ出し防止） */
-    .problem-content ul li::before {
-        content: "✔";
-        position: absolute;
-        left: 0;
-        color: #e67e22;
-    }
-
-    /* ★アイコンサイズが一番のポイント */
-    .problem-icon {
-        width: 100px;  /* 180pxから100pxに！ */
-        height: 100px;
-        margin: 0;     /* 余計なマージンを全削除 */
-        padding: 5px;
-        flex-shrink: 0;
-    }
+    .problems { padding: 40px 15px; }
+    .problem-grid { margin-bottom: 0; gap: 15px; }
+    .problem-item { min-width: 100%; padding: 20px 15px; box-sizing: border-box; }
+    .problem-item h3 { font-size: 20px; margin-bottom: 15px;}
+    .problem-content { display: flex; flex-direction: row; align-items: center;  justify-content: space-between; gap: 10px;}
+    .problem-content ul { flex: 1; padding-left: 20px; margin-bottom: 0; list-style-type: none; }
+    .problem-content ul li { font-size: 14px; margin-bottom: 8px; position: relative; padding-left: 1.2em; line-height: 1.4; }
+    .problem-content ul li::before { content: "✔"; position: absolute; left: 0; color: #e67e22; }
+    .problem-icon { width: 100px; height: 100px; margin: 0; padding: 5px; flex-shrink: 0; }
 }
 
 /* --- サービスサマリー (Service Summary) --- */
