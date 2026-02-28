@@ -58,7 +58,7 @@ main {
 }
 
 /* ==========================================
-   2. ヘッダー (Header & Navigation)
+   2. ヘッダー + 固定フッターボタン　(Header & Navigation& Fixed Footer)
    ========================================== */
 .site-header {
     position: fixed;
@@ -125,9 +125,8 @@ main {
     main { padding-top: 60px !important; }
     .site-header { padding: 5px 0 !important; border-bottom: 2px solid #2d5a27; }
     .header-top { display: flex; flex-direction: row; align-items: center; justify-content: space-between; gap: 10px; padding: 8px 15px !important; max-width: 100%;}
-    .sub-logo, .contact-label, .header-hours { display: none !important; }
-    .logo-text h1 { font-size: 18px !important; white-space: nowrap; line-height: 1.2; margin: 0; }
-    .header-tel { font-size: 16px; display: flex; align-items: center; gap: 4px; font-weight: bold;}
+    .contact-label, .header-hours, .header-tel { display: none !important; }
+    .logo-text h1 { font-size: 25px !important; white-space: nowrap; line-height: 1.2; margin: 0; }
 
     /* ハンバーガーボタン */
     .menu-toggle {
@@ -161,6 +160,20 @@ main {
     .menu-toggle.open span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
     .menu-toggle.open span:nth-child(2) { opacity: 0; }
     .menu-toggle.open span:nth-child(3) { transform: translateY(-10px) rotate(-45deg); }
+}
+
+/* 固定フッター：ベース（PCでは隠す） */
+.fixed-footer-actions {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .fixed-footer-actions { display: flex; position: fixed; bottom: 0; left: 0; width: 100%; height: 65px; z-index: 9999; box-shadow: 0 -2px 10px rgba(0,0,0,0.1); }
+    .ft-btn { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-decoration: none; font-weight: bold; font-size: 20px; gap: 2px; }
+    .ft-tel { background-color: #2d5a27; color: #fff; }
+    .ft-mail {background-color: #e67e22; color: #fff; border-left: 1px solid rgba(255,255,255,0.3); /* 境界線 */}
+    .ft-btn i { font-size: 18px; }
+    body { padding-bottom: 65px; }
 }
 
 /* ==========================================
