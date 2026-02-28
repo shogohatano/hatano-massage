@@ -214,8 +214,8 @@ main {
 /* Heroセクション：スマホ対応 */
 @media (max-width: 768px) {
     .hero { padding: 40px 15px; text-align: center; }
-    .hero-container { flex-direction: column; gap: 20px; }
-    .hero-image { order: -1; width: 100%; }
+    .hero-container { flex-direction: column; gap: 0px; }
+    .hero-image { order: -1; width: 100%; margin-bottom: -10px;}
     .hero-illustration { max-width: 250px; margin: 0 auto; }
     .hero-illustration.none { display: none; }    
     .hero-text { width: 100%; }
