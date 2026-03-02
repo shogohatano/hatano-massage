@@ -23,6 +23,7 @@ main {
 
 @media (max-width: 768px) {
     .sp-only { display: inline; }
+    .no-br { white-space: nowrap; }
 }
 
 /* スマホ版：文字サイズ */
